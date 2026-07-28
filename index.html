@@ -184,6 +184,7 @@
 
   /* CARDS (projects / philosophy) */
   .release-grid{display:grid; gap:20px; grid-template-columns:1fr 1fr;}
+  .release-card.featured{grid-column:1 / -1;}
   @media (max-width:700px){ .release-grid{grid-template-columns:1fr;} }
   .release-card{background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius); padding:22px;}
   .release-card .card-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; gap:12px;}
@@ -247,13 +248,14 @@
       <li><button class="nav-btn" data-target="experience">Work Experience</button></li>
       <li><button class="nav-btn" data-target="projects">Projects &amp; Publications</button></li>
       <li><button class="nav-btn" data-target="interests">Beyond Work</button></li>
+      <li><button class="nav-btn" data-target="contact">Contact</button></li>
     </ul>
 
     <div class="sidebar-contact">
       <div class="eyebrow">Contact</div>
       <a href="mailto:tanya.l.borges@gmail.com">tanya.l.borges@gmail.com</a>
       <a href="tel:+353894544969">+353 89 454 4969</a>
-      <a href="#" onclick="return false;">LinkedIn ↗</a>
+      <a href="https://www.linkedin.com/in/tanyalillianborges/" onclick="return false;">LinkedIn ↗</a>
       <a href="#" onclick="return false;">Resume (PDF) ↗</a>
     </div>
   </nav>
@@ -504,6 +506,19 @@
       </div>
 
       <div class="release-grid">
+        <div class="release-card featured fade-in">
+          <div class="card-top"><h3>MindSafe — Privacy-First Mental Health App</h3><span class="pill pill--pass pill--dot">Shipped</span></div>
+          <p class="role">UCD MSc assignment (IS40870) · Product concept, research &amp; UX design</p>
+          <p>Designed a concept mental health app that predicts emotional triggers from real-life data — sleep, hydration, nutrition, menstrual cycle, work schedule — so users can understand patterns before a crisis rather than only after one. Started from a literature review of privacy failures in existing mental health apps (unclear policies, weak data rights, no offline mode) and used those findings to drive every product decision: opt-in-only data sharing with local-first storage, full user rights to view/export/delete their data, pseudonymous community features, and a controlled-access therapist collaboration flow. Delivered as a full case: problem framing, competitive positioning against existing apps, evidence-based design principles, and interactive mockups.</p>
+          <div class="impact">Impact: end-to-end product case study — from research and ethical design principles through to concrete interface decisions — grounded in 9 academic sources on mental-health-app privacy and usability.</div>
+          <div class="log-tags" style="margin-top:12px;">
+            <span class="tag">product framing</span>
+            <span class="tag">privacy by design</span>
+            <span class="tag">competitive analysis</span>
+            <span class="tag">UX mockups</span>
+          </div>
+        </div>
+
         <div class="release-card fade-in">
           <div class="card-top"><h3>Business Rule Validation</h3><span class="pill pill--pass pill--dot">Shipped</span></div>
           <p class="role">ARIVE · Product QA</p>
@@ -650,6 +665,26 @@
           <span class="interest-tag">Baking</span>
           <span class="interest-tag">UX design &amp; emerging tech</span>
         </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section id="contact" class="page">
+      <div class="page-head">
+        <div class="eyebrow">Get in touch</div>
+        <h2>Contact</h2>
+        <p class="lede">Open to associate &amp; entry-level Product Manager roles, and honest conversations about the switch from anyone who's made it. Based in Dublin, Ireland.</p>
+      </div>
+
+      <div class="terminal">
+        <span class="prompt">$</span> git remote add tanya <span style="color:#E8EDF3;">mailto:tanya.l.borges@gmail.com</span><br>
+        <span class="prompt">$</span> echo "let's talk" | mail -s "Hi Tanya" tanya.l.borges@gmail.com
+      </div>
+      <div class="contact-links">
+        <a href="mailto:tanya.l.borges@gmail.com">Email</a>
+        <a href="tel:+353894544969">+353 89 454 4969</a>
+        <a href="#" onclick="return false;">LinkedIn ↗</a>
+        <a href="#" onclick="return false;">Resume (PDF) ↗</a>
       </div>
     </section>
 
