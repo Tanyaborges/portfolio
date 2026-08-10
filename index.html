@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tanya Lillian Borges — QA Tester Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F6F2;
+    --paper-raised:#FFFFFF;
+    --ink:#1B2430;
+    --ink-soft:#4B5563;
+    --line:#D8D5CC;
+    --pass:#2F7A4D;
+    --pass-bg:#E6F1E9;
+    --amber:#B5791F;
+    --amber-bg:#F7ECD9;
+    --blue:#3A5B8C;
+    --blue-bg:#E7EDF5;
+    --red:#B5432F;
+    --red-bg:#F7E4DF;
+    --radius:3px;
+    --sidebar-w:260px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+  :focus-visible{outline:2px solid var(--blue); outline-offset:3px;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  /* ===== ACCESSIBILITY HELPERS ===== */
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+  .skip-link{
+    position:absolute; top:-100px; left:8px; z-index:100;
+    background:var(--ink); color:var(--paper);
+    padding:10px 16px; border-radius:var(--radius);
+    font-family:'IBM Plex Mono', monospace; font-size:13px;
+    text-decoration:none; transition:top .15s ease;
+  }
+  .skip-link:focus{top:8px;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+  }
+
+  .pill{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; font-weight:500;
+    letter-spacing:.04em;
+    padding:4px 10px;
+    border-radius:100px;
+    border:1px solid transparent;
+  }
+  .pill--pass{background:var(--pass-bg); color:var(--pass); border-color:color-mix(in srgb, var(--pass) 30%, transparent);}
+  .pill--amber{background:var(--amber-bg); color:var(--amber); border-color:color-mix(in srgb, var(--amber) 30%, transparent);}
+  .pill--blue{background:var(--blue-bg); color:var(--blue); border-color:color-mix(in srgb, var(--blue) 30%, transparent);}
+  .pill--red{background:var(--red-bg); color:var(--red); border-color:color-mix(in srgb, var(--red) 30%, transparent);}
+  .pill--dot::before{content:''; width:6px; height:6px; border-radius:50%; background:currentColor;}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:.08em; color:var(--ink-soft);
+    text-transform:uppercase;
+  }
+  h2{
+    font-family:'Fraunces', serif; font-weight:500;
+    font-size:28px; margin:2px 0 0;
+  }
+
+  /* ===== SHELL / LAYOUT ===== */
+  .shell{
+    display:grid;
+    grid-template-columns:var(--sidebar-w) 1fr;
+    min-height:100vh;
+  }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar{
+    background:var(--ink);
+    color:var(--paper);
+    position:sticky; top:0; height:100vh;
+    display:flex; flex-direction:column;
+    padding:32px 22px;
+  }
+  .sidebar-top .mono.small{font-size:11px; color:#9AA5B1; letter-spacing:.03em;}
+  .side-name{
+    font-family:'Fraunces', serif; font-weight:500;
+    font-size:26px; margin:10px 0 14px; line-height:1.15; color:var(--paper);
+  }
+  .sidebar-top .pill--pass{background:rgba(47,122,77,.18); color:#7DE3A0; border-color:rgba(125,227,160,.4);}
+
+  .side-nav-wrap{display:contents;}
+  .side-nav{list-style:none; margin:32px 0; padding:0; flex:1;}
+  .side-nav li{margin-bottom:4px;}
+  .nav-btn{
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    display:flex; align-items:center; gap:10px;
+    font-family:'IBM Plex Sans', sans-serif; font-size:14px; color:#B8C0CC;
+    padding:10px 10px; border-radius:3px;
+    border-left:2px solid transparent;
+    transition:background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .nav-btn:hover{background:#232B38; color:var(--paper);}
+  .nav-btn.active{background:#232B38; color:var(--paper); border-left-color:var(--pass);}
+
+  .sidebar-contact{border-top:1px solid #2A3342; padding-top:18px; font-style:normal;}
+  .sidebar-contact .eyebrow{color:#6B7684; margin-bottom:10px;}
+  .sidebar-contact a{
+    display:block; font-family:'IBM Plex Mono', monospace; font-size:12.5px;
+    color:#B8C0CC; text-decoration:none; margin-bottom:8px;
+    transition:color .15s ease;
+  }
+  .sidebar-contact a:hover{color:#7DE3A0;}
+
+  @media (max-width:860px){
+    .shell{grid-template-columns:1fr;}
+    .sidebar{
+      position:sticky; top:0; height:auto; z-index:20;
+      flex-direction:row; align-items:center; flex-wrap:nowrap;
+      padding:14px 16px; gap:14px; overflow-x:auto;
+    }
+    .sidebar-top{display:flex; align-items:center; gap:10px; flex-shrink:0;}
+    .sidebar-top .mono.small{display:none;}
+    .side-name{font-size:16px; margin:0; white-space:nowrap;}
+    .side-nav{display:flex; margin:0; gap:4px; flex:none;}
+    .nav-btn{white-space:nowrap; padding:8px 10px; border-left:none; border-bottom:2px solid transparent;}
+    .nav-btn.active{border-left:none; border-bottom-color:var(--pass);}
+    .sidebar-contact{display:none;}
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  .content{padding:56px 48px; max-width:900px;}
+  @media (max-width:860px){ .content{padding:36px 20px;} }
+
+  .page{
+    display:block;
+    scroll-margin-top:24px;
+  }
+  .page:not(:first-of-type){
+    border-top:1px solid var(--line);
+    margin-top:64px;
+    padding-top:56px;
+  }
+  @media (max-width:860px){
+    .page{scroll-margin-top:78px;}
+  }
+
+  .page-head{margin-bottom:36px;}
+  .page-head .eyebrow{margin-bottom:6px;}
+  .page-head p.lede{color:var(--ink-soft); font-size:15.5px; max-width:600px; margin:10px 0 0;}
+
+  h1.name{
+    font-family:'Fraunces', serif; font-weight:500;
+    font-size:clamp(34px, 5vw, 50px); line-height:1.08; margin:0 0 6px; letter-spacing:-.01em;
+  }
+  h1.name .cursor{display:inline-block; width:.5ch; background:var(--pass); animation:blink 1.1s steps(2) infinite; margin-left:4px;}
+  @keyframes blink{50%{opacity:0;}}
+  @media (prefers-reduced-motion: reduce){ h1.name .cursor{animation:none;} }
+  .tagline{font-size:16.5px; color:var(--ink-soft); max-width:700px; margin:0 0 20px;}
+  .pill-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px;}
+
+  .subsection{margin-top:52px;}
+  .subsection-head{margin-bottom:24px;}
+
+  /* CHANGELOG / EXPERIENCE / EDUCATION ENTRIES */
+  .log-entry{
+    display:grid; grid-template-columns:110px 1fr; gap:20px;
+    padding:24px 0; border-top:1px solid var(--line);
+  }
+  .log-entry:first-of-type{border-top:none;}
+  .log-version{font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:600; color:var(--ink); padding-top:2px;}
+  .log-body h3{font-size:17px; margin:0 0 4px; font-weight:600;}
+  .log-meta{font-size:13px; color:var(--ink-soft); margin:0 0 10px;}
+  .log-body p.desc{margin:0 0 10px; color:var(--ink-soft); font-size:14.5px;}
+  ul.desc-list{margin:0 0 12px; padding-left:18px; color:var(--ink-soft); font-size:14.5px;}
+  ul.desc-list li{margin-bottom:5px;}
+  .log-tags{display:flex; gap:6px; flex-wrap:wrap;}
+  .tag{
+    font-family:'IBM Plex Mono', monospace; font-size:11px;
+    background:var(--paper-raised); border:1px solid var(--line);
+    padding:3px 8px; border-radius:100px; color:var(--ink-soft);
+  }
+  @media (max-width:560px){ .log-entry{grid-template-columns:1fr;} .log-version{padding-top:0;} }
+  .log-entry:not(:has(.log-version)){grid-template-columns:1fr;}
+
+  /* ORGANISATION GROUPING (experience) */
+  .org-block{margin-bottom:0;}
+  .org-head{padding-bottom:20px; border-bottom:1px solid var(--line); margin-bottom:4px;}
+  .org-name{font-family:'Fraunces', serif; font-weight:500; font-size:21px; margin:0 0 8px;}
+  .org-desc{font-size:14px; color:var(--ink-soft); margin:0; max-width:640px;}
+
+  /* COVERAGE */
+  .coverage-item{margin-bottom:20px;}
+  .coverage-label{display:flex; justify-content:space-between; font-size:14.5px; margin-bottom:6px;}
+  .coverage-label .metric{font-family:'IBM Plex Mono', monospace; color:var(--ink-soft); font-size:13px;}
+  .coverage-track{height:8px; background:var(--paper-raised); border:1px solid var(--line); border-radius:100px; overflow:hidden;}
+  .coverage-fill{height:100%; background:var(--pass); border-radius:100px; width:0%; transition:width 1s cubic-bezier(.4,0,.2,1);}
+  .coverage-fill.blue{background:var(--blue);}
+  .coverage-fill.amber{background:var(--amber);}
+
+  .skill-bars{display:flex; gap:6px;}
+  .skill-bars .bar{
+    flex:1; height:8px; border-radius:100px;
+    background:var(--paper-raised); border:1px solid var(--line);
+  }
+  .skill-bars .bar.filled{background:var(--pass); border-color:var(--pass);}
+  .skill-bars .bar.filled.blue{background:var(--blue); border-color:var(--blue);}
+  .skill-bars .bar.filled.amber{background:var(--amber); border-color:var(--amber);}
+
+  /* CARDS (projects) */
+  .release-grid{display:grid; gap:20px; grid-template-columns:1fr 1fr;}
+  .release-card.featured{grid-column:1 / -1;}
+  @media (max-width:700px){ .release-grid{grid-template-columns:1fr;} }
+  .release-card{background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius); padding:22px;}
+  .release-card .card-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; gap:12px;}
+  .release-card h3{font-size:16.5px; margin:0; font-family:'Fraunces', serif; font-weight:500;}
+  .release-card .role{font-size:12px; color:var(--ink-soft); font-family:'IBM Plex Mono', monospace; margin:2px 0 12px;}
+  .release-card p{font-size:14px; color:var(--ink-soft); margin:0 0 12px;}
+  .release-card .impact{
+    font-size:13px; color:var(--ink); background:var(--pass-bg);
+    border-left:3px solid var(--pass); padding:8px 12px; border-radius:0 3px 3px 0;
+  }
+  a.release-card{text-decoration:none; display:block; cursor:pointer; transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;}
+  a.release-card:hover{transform:translateY(-3px); border-color:var(--pass); box-shadow:0 6px 16px rgba(27,36,48,.08);}
+  .view-link{
+    display:inline-flex; align-items:center; gap:5px; margin-top:12px;
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--pass); font-weight:600;
+  }
+
+  /* ISSUES LIST */
+  .issue{display:grid; grid-template-columns:28px 1fr; gap:12px; padding:18px 0; border-top:1px solid var(--line);}
+  .issue:first-of-type{border-top:none;}
+  .issue-icon{font-family:'IBM Plex Mono', monospace; color:var(--amber); font-weight:600;}
+  .issue h4{margin:0 0 4px; font-size:15px;}
+  .issue p{margin:0 0 4px; font-size:14px; color:var(--ink-soft);}
+
+  /* INTERESTS TAGS */
+  .interest-tags{display:flex; gap:10px; flex-wrap:wrap;}
+  .interest-tag{
+    font-family:'IBM Plex Mono', monospace; font-size:13px;
+    background:var(--paper-raised); border:1px solid var(--line);
+    padding:8px 14px; border-radius:100px; color:var(--ink);
+  }
+
+  /* TERMINAL / CONTACT CARD */
+  .terminal{
+    font-family:'IBM Plex Mono', monospace;
+    background:#111721; border:1px solid #2A3342; border-radius:var(--radius);
+    padding:20px; margin:18px 0; font-size:13px; color:#7DE3A0;
+    overflow-x:auto;
+  }
+  .terminal .prompt{color:#9AA5B1;}
+  .contact-links{display:flex; gap:12px; flex-wrap:wrap;}
+  .contact-links a{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px;
+    border:1px solid var(--line); padding:8px 14px; border-radius:100px;
+    text-decoration:none; color:var(--ink); transition:background .15s ease;
+  }
+  .contact-links a:hover{background:var(--paper-raised);}
+
+  /* CONTACT FORM */
+  .contact-form{
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius);
+    padding:28px; max-width:560px; margin-top:24px;
+  }
+  .form-row{margin-bottom:18px;}
+  .form-row label{
+    display:block; font-family:'IBM Plex Mono', monospace; font-size:12px;
+    color:var(--ink-soft); text-transform:uppercase; letter-spacing:.05em; margin-bottom:7px;
+  }
+  .form-row input, .form-row textarea{
+    width:100%; font-family:'IBM Plex Sans', sans-serif; font-size:14.5px; color:var(--ink);
+    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+    padding:11px 12px; resize:vertical;
+  }
+  .form-row input:focus, .form-row textarea:focus{border-color:var(--blue);}
+  .form-row textarea{min-height:120px;}
+  .form-submit{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:600;
+    background:var(--ink); color:var(--paper); border:none; border-radius:var(--radius);
+    padding:12px 22px; cursor:pointer; transition:background .15s ease;
+  }
+  .form-submit:hover{background:#2A3342;}
+  .form-msg{font-family:'IBM Plex Mono', monospace; font-size:12.5px; margin-top:12px; min-height:16px;}
+  .form-msg.ok{color:var(--pass);}
+  .form-msg.err{color:var(--red);}
+
+  /* BUG SQUASHER GAME */
+  .game-wrap{
+    background:#111721; border:1px solid #2A3342; border-radius:var(--radius);
+    padding:24px; max-width:640px;
+  }
+  .game-hud{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:18px; flex-wrap:wrap;}
+  .hud-item{font-family:'IBM Plex Mono', monospace; font-size:13px; color:#B8C0CC;}
+  .hud-item span{color:#7DE3A0; font-weight:600; font-size:15px;}
+  .btn-start{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:600;
+    background:var(--pass); color:#0C120C; border:none; border-radius:100px;
+    padding:10px 18px; cursor:pointer; transition:opacity .15s ease;
+  }
+  .btn-start:hover{opacity:.88;}
+  .btn-start:disabled{opacity:.5; cursor:default;}
+  .game-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:10px;
+  }
+  .game-cell{
+    aspect-ratio:1; background:#1B2430; border:1px solid #2A3342; border-radius:6px;
+    display:flex; align-items:center; justify-content:center; font-size:26px;
+    cursor:pointer; user-select:none; position:relative; overflow:hidden;
+    font-family:inherit; padding:0; color:inherit; width:100%;
+  }
+  .game-cell .bug{display:none; animation:pop .12s ease;}
+  .game-cell.active .bug{display:block;}
+  .game-cell.squashed{background:var(--pass-bg);}
+  .game-cell.squashed .bug{display:none;}
+  @keyframes pop{from{transform:scale(.4); opacity:0;} to{transform:scale(1); opacity:1;}}
+  .game-msg{font-family:'IBM Plex Mono', monospace; font-size:13px; color:#B8C0CC; margin:16px 0 0; min-height:18px;}
+  .game-msg.done{color:#7DE3A0;}
+  .game-intro{font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:#9AA5B1; margin:0 0 18px;}
+
+  .fade-in{opacity:1;}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<div class="shell">
+
+  <div class="sidebar">
+    <div class="sidebar-top">
+      <span class="mono small" aria-hidden="true">tanya-borges / qa.log</span>
+      <p class="side-name">Tanya Lillian Borges</p>
+      <span class="pill pill--pass pill--dot">OPEN TO WORK</span>
+    </div>
+
+    <nav class="side-nav-wrap" aria-label="Section navigation">
+      <ul class="side-nav">
+        <li><button class="nav-btn active" data-target="about" aria-current="page">About</button></li>
+        <li><button class="nav-btn" data-target="skills">Skills</button></li>
+        <li><button class="nav-btn" data-target="experience">Experience</button></li>
+        <li><button class="nav-btn" data-target="education">Education</button></li>
+        <li><button class="nav-btn" data-target="beyond">Beyond Work</button></li>
+        <li><button class="nav-btn" data-target="projects">Projects</button></li>
+        <li><button class="nav-btn" data-target="game">Bug Squasher</button></li>
+        <li><button class="nav-btn" data-target="contact">Contact</button></li>
+      </ul>
+    </nav>
+
+    <address class="sidebar-contact">
+      <div class="eyebrow">Contact</div>
+      <a href="mailto:tanya.l.borges@gmail.com">tanya.l.borges@gmail.com</a>
+      <a href="tel:+353894544969">+353 89 454 4969</a>
+      <a href="https://www.linkedin.com/in/tanyalillianborges/" target="_blank" rel="noopener">LinkedIn<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a>
+    </address>
+  </div>
+
+  <main class="content" id="main-content" tabindex="-1">
+
+    <!-- ================= ABOUT ================= -->
+    <section id="about" class="page active" aria-label="About">
+      <h1 class="name">Tanya Lillian Borges<span class="cursor mono" aria-hidden="true">&nbsp;</span></h1>
+      <div class="pill-row">
+        <span class="pill pill--blue pill--dot">Dublin, Ireland</span>
+        <span class="pill pill--amber pill--dot">MSc Information Systems, UCD</span>
+        <span class="pill pill--pass pill--dot">B.Tech Computer Science, Sharda University</span>
+      </div>
+      <p class="tagline mono" style="font-size:15px;">QA Engineer · Manual, Exploratory &amp; Automated Testing (Playwright, Postman)</p>
+      <p class="tagline">QA Engineer with 3+ years of hands-on experience in manual and exploratory testing, defect logging, and Agile delivery, with growing, practical experience in test automation using Playwright and API testing using Postman. Comfortable working in both JavaScript and Python, with a genuine interest in software quality and a real appetite to keep deepening automation skills. Skilled at describing bugs in a broader business context and explaining impact clearly to both technical and non-technical stakeholders. Currently completing an MSc in Information Systems at UCD.</p>
+      <div class="contact-links">
+        <a href="mailto:tanya.l.borges@gmail.com">Email</a>
+        <a href="tel:+353894544969">+353 89 454 4969</a>
+        <a href="https://www.linkedin.com/in/tanyalillianborges/" target="_blank" rel="noopener">LinkedIn<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-head">
+          <div class="eyebrow">How I test</div>
+          <h2>Working principles</h2>
+        </div>
+
+        <div class="release-grid">
+          <div class="release-card fade-in">
+            <div class="card-top"><h3>Break it before the user does</h3><span class="pill pill--blue pill--dot">Principle</span></div>
+            <p>A methodical, investigative mindset built through structured test case design, edge-case testing, and regression testing across web and mobile (Android &amp; iOS).</p>
+          </div>
+          <div class="release-card fade-in">
+            <div class="card-top"><h3>Bugs need business context</h3><span class="pill pill--blue pill--dot">Principle</span></div>
+            <p>A defect report is only useful if the reader understands the impact. I write bugs that make sense to engineers and to non-technical stakeholders alike.</p>
+          </div>
+          <div class="release-card fade-in">
+            <div class="card-top"><h3>Automate the repeatable stuff</h3><span class="pill pill--blue pill--dot">Principle</span></div>
+            <p>Manual exploration finds what automation can't predict; automation protects what manual testing already proved. Playwright and Postman handle the regression load so exploratory time goes further.</p>
+          </div>
+          <div class="release-card fade-in">
+            <div class="card-top"><h3>Data doesn't lie, headlines do</h3><span class="pill pill--blue pill--dot">Principle</span></div>
+            <p>Digging past the top-line number is the same instinct whether I'm testing edge cases or analysing a dataset — the real story is usually one layer down.</p>
+          </div>
+          <div class="release-card fade-in">
+            <div class="card-top"><h3>Prioritise over perfection</h3><span class="pill pill--blue pill--dot">Principle</span></div>
+            <p>Full test coverage isn't realistically possible on most projects. What matters is prioritising by risk and impact, then fixing as many issues as possible within the time available.</p>
+          </div>
+          <div class="release-card fade-in">
+            <div class="card-top"><h3>Working software isn't enough</h3><span class="pill pill--blue pill--dot">Principle</span></div>
+            <p>Fixing every bug doesn't help if the software is still hard to use or doesn't meet user needs. Testing has to check requirements are met and the experience actually works for users, not just that defects are gone.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SKILLS ================= -->
+    <section id="skills" class="page" aria-labelledby="skills-heading">
+      <div class="page-head">
+        <div class="eyebrow">Skills</div>
+        <h2 id="skills-heading">Test coverage</h2>
+        <p class="lede">Skills mapped like a QA coverage report.</p>
+      </div>
+
+      <div class="coverage-item fade-in">
+        <div class="coverage-label"><span>Manual &amp; exploratory testing</span><span class="metric">5/5</span></div>
+        <div class="skill-bars" role="img" aria-label="Manual and exploratory testing: 5 out of 5">
+          <span class="bar filled"></span><span class="bar filled"></span><span class="bar filled"></span><span class="bar filled"></span><span class="bar filled"></span>
+        </div>
+      </div>
+      <div class="coverage-item fade-in">
+        <div class="coverage-label"><span>API testing (Postman / REST)</span><span class="metric">4/5</span></div>
+        <div class="skill-bars" role="img" aria-label="API testing: 4 out of 5">
+          <span class="bar filled blue"></span><span class="bar filled blue"></span><span class="bar filled blue"></span><span class="bar filled blue"></span><span class="bar"></span>
+        </div>
+      </div>
+      <div class="coverage-item fade-in">
+        <div class="coverage-label"><span>Test automation (Playwright)</span><span class="metric">3/5</span></div>
+        <div class="skill-bars" role="img" aria-label="Test automation: 3 out of 5">
+          <span class="bar filled amber"></span><span class="bar filled amber"></span><span class="bar filled amber"></span><span class="bar"></span><span class="bar"></span>
+        </div>
+      </div>
+      <div class="coverage-item fade-in">
+        <div class="coverage-label"><span>SQL &amp; data analysis</span><span class="metric">4/5</span></div>
+        <div class="skill-bars" role="img" aria-label="SQL and data analysis: 4 out of 5">
+          <span class="bar filled blue"></span><span class="bar filled blue"></span><span class="bar filled blue"></span><span class="bar filled blue"></span><span class="bar"></span>
+        </div>
+      </div>
+      <p class="mono fade-in" style="font-size:12px; color:var(--ink-soft); margin-top:8px;">note: automation coverage is under active test — growing steadily project by project.</p>
+
+      <div class="subsection">
+        <div class="subsection-head">
+          <div class="eyebrow">Tools &amp; methods</div>
+          <h2>Toolkit</h2>
+        </div>
+        <div class="interest-tags">
+          <span class="interest-tag">JIRA</span>
+          <span class="interest-tag">Postman</span>
+          <span class="interest-tag">Playwright</span>
+          <span class="interest-tag">JavaScript</span>
+          <span class="interest-tag">Python</span>
+          <span class="interest-tag">SQL / MySQL</span>
+          <span class="interest-tag">Agile / Scrum</span>
+          <span class="interest-tag">Mobile Testing (Android &amp; iOS)</span>
+          <span class="interest-tag">Test Case &amp; Test Plan Design</span>
+          <span class="interest-tag">UAT Support</span>
+          <span class="interest-tag">Defect Triage</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= EXPERIENCE ================= -->
+    <section id="experience" class="page" aria-labelledby="experience-heading">
+      <div class="page-head">
+        <div class="eyebrow">Career</div>
+        <h2 id="experience-heading">Work experience</h2>
+      </div>
+
+      <div class="org-block fade-in">
+        <div class="org-head">
+          <h3 class="org-name">ARIVE</h3>
+          <p class="org-desc">ARIVE is a mortgage technology company that builds an all-in-one origination platform for independent mortgage brokers — combining a loan origination system, borrower-facing point of sale, products &amp; pricing engine, and a connected lender marketplace into a single tool.</p>
+        </div>
+
+        <div class="log-entry">
+          <div class="log-body">
+            <h3>Quality Assurance Engineer</h3>
+            <p class="log-meta">Jul 2024 — Aug 2025</p>
+            <ul class="desc-list">
+              <li>Executed manual and exploratory test cases against defined acceptance criteria, covering functional, regression, integration, and edge-case scenarios across web and mobile (Android &amp; iOS)</li>
+              <li>Logged clear, reproducible defects in JIRA and supported the defect triage process, working closely with development teams to prioritise and resolve issues</li>
+              <li>Contributed to test documentation — test cases, test plans, and results — to support audit and release readiness</li>
+              <li>Supported UAT cycles alongside the wider QA team and business stakeholders, validating product readiness against defined acceptance criteria</li>
+              <li>Began writing and maintaining automated tests in Playwright, progressively contributing automated coverage to regression suites</li>
+              <li>Performed API testing using Postman and REST-based requests to validate service behaviour across multiple release cycles</li>
+              <li>Analysed backend data using SQL to detect trends, inconsistencies, and performance issues</li>
+              <li>Communicated defects and their business impact clearly to technical and non-technical stakeholders, and mentored new QA team members</li>
+            </ul>
+            <div class="log-tags">
+              <span class="tag">Playwright</span>
+              <span class="tag">Postman / REST</span>
+              <span class="tag">SQL analysis</span>
+              <span class="tag">mentoring</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="log-entry">
+          <div class="log-body">
+            <h3>Associate Quality Assurance Engineer</h3>
+            <p class="log-meta">Apr 2023 — Jun 2024</p>
+            <ul class="desc-list">
+              <li>Executed test scenarios aligned with business and technical requirements within an Agile/Scrum team, identifying gaps between expected and actual system behaviour</li>
+              <li>Participated in UAT cycles, collaborating closely with Business Analysts and stakeholders to validate product readiness</li>
+              <li>Maintained structured test documentation to support product improvement and release decisions; contributed to defect trend analysis</li>
+              <li>Gained hands-on exposure to API-level interactions and service validation using Postman</li>
+              <li>Supported onboarding of new team members by sharing knowledge of testing processes and documentation practices</li>
+            </ul>
+            <div class="log-tags">
+              <span class="tag">UAT</span>
+              <span class="tag">API testing</span>
+              <span class="tag">documentation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= EDUCATION ================= -->
+    <section id="education" class="page" aria-labelledby="education-heading">
+      <div class="page-head">
+        <div class="eyebrow">Education</div>
+        <h2 id="education-heading">Education</h2>
+      </div>
+
+      <div class="log-entry fade-in">
+        <div class="log-body">
+          <h3>M.Sc. in Information Systems</h3>
+          <p class="log-meta">Sep 2025 — Aug 2026 · University College Dublin</p>
+          <p class="desc" style="margin-bottom:6px;"><strong>Modules:</strong></p>
+          <ul class="desc-list">
+            <li>Machine Learning Foundations</li>
+            <li>Language Models and Methods</li>
+            <li>Data Wrangling and Visualisation</li>
+            <li>Interactive Dashboards</li>
+            <li>Project Management</li>
+            <li>AI Ethics and Auditing</li>
+          </ul>
+          <div class="log-tags">
+            <span class="tag">GPA 3.81</span>
+            <span class="tag">Academic Scholarship</span>
+            <span class="tag">Postgrad Rep, UCD Women+ in STEM</span>
+            <span class="tag">UCD Advantage Award</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="log-entry fade-in">
+        <div class="log-body">
+          <h3>B.Tech. in Computer Science</h3>
+          <p class="log-meta">Aug 2019 — May 2023 · Sharda University</p>
+          <p class="desc" style="margin-bottom:6px;"><strong>Modules:</strong></p>
+          <ul class="desc-list">
+            <li>Database Management Systems</li>
+            <li>Data Structures &amp; Algorithms</li>
+            <li>Operating Systems</li>
+            <li>Software Engineering and Testing</li>
+            <li>Managerial Economics</li>
+          </ul>
+          <div class="log-tags">
+            <span class="tag">GPA 3.64</span>
+            <span class="tag">Class Representative</span>
+            <span class="tag">Scholarship for Academic Excellence</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BEYOND WORK ================= -->
+    <section id="beyond" class="page" aria-labelledby="beyond-heading">
+      <div class="page-head">
+        <div class="eyebrow">Outside the day job</div>
+        <h2 id="beyond-heading">Beyond work</h2>
+        <p class="lede">Volunteering, mentoring, and community organising alongside QA and study.</p>
+      </div>
+
+      <div class="log-entry fade-in">
+        <div class="log-body">
+          <h3>Postgraduate Representative</h3>
+          <p class="log-meta">UCD Women+ in STEM · Sep 2025 – Present</p>
+          <ul class="desc-list">
+            <li>Lead school outreach campaigns and large-scale campus events, coordinating logistics and engaging diverse audiences, comfortable staying organised, warm, and professional in busy, people-facing settings.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="log-entry fade-in">
+        <div class="log-body">
+          <h3>General Volunteer</h3>
+          <p class="log-meta">Stoneybatter Festival · June 2026</p>
+          <ul class="desc-list">
+            <li>Welcomed members of the public and supported event coordination, building quick rapport in a busy, live environment.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="log-entry fade-in">
+        <div class="log-body">
+          <h3>General Volunteer</h3>
+          <p class="log-meta">Dublin Comic Con · Mar 2026</p>
+          <ul class="desc-list">
+            <li>Assisted attendees and handled queries at a high-footfall public event, staying friendly and efficient under time pressure.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="log-entry fade-in">
+        <div class="log-body">
+          <h3>Project Mentor</h3>
+          <p class="log-meta">Una Europa · Sep 2025 – Dec 2025</p>
+          <ul class="desc-list">
+            <li>Mentored an international student team on a cross-border project, strengthening structured communication and leadership skills.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="log-entry fade-in">
+        <div class="log-body">
+          <h3>Slack Moderator &amp; General Volunteer</h3>
+          <p class="log-meta">Women Who Code · Dec 2020 – Dec 2022</p>
+          <ul class="desc-list">
+            <li>Managed community operations and engagement for a 500+ member platform, demonstrating ability to maintain quality and culture at scale.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="log-entry fade-in">
+        <div class="log-body">
+          <h3>Teaching Volunteer</h3>
+          <p class="log-meta">Pehchaan the Street School · Jul 2023 – Mar 2025</p>
+          <ul class="desc-list">
+            <li>Taught underprivileged children.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="log-entry fade-in">
+        <div class="log-body">
+          <h3>Teaching Volunteer</h3>
+          <p class="log-meta">Ujaala · Apr 2015 – Dec 2019</p>
+          <ul class="desc-list">
+            <li>Taught underprivileged children.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROJECTS ================= -->
+    <section id="projects" class="page" aria-labelledby="projects-heading">
+      <div class="page-head">
+        <div class="eyebrow">Case studies</div>
+        <h2 id="projects-heading">Projects</h2>
+        <p class="lede">Click any project to open it. Swap in your real repo or demo link — see the note at the bottom of this page.</p>
+      </div>
+
+      <div class="release-grid">
+        <a class="release-card featured fade-in" href="#" target="_blank" rel="noopener" data-project="todo">
+          <div class="card-top"><h3>To-Do App</h3><span class="pill pill--pass pill--dot">Shipped</span></div>
+          <p class="role">Personal project · Full-stack build</p>
+          <p>Designed and built a task manager application end to end — feature scoping, UI design, and deployment — as a self-directed exercise in shipping a full product independently, then testing it the way I'd test any real release.</p>
+          <div class="impact">Impact: proof point for scoping, building, and QA-ing a product start to finish.</div>
+          <span class="view-link">View project<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></span>
+        </a>
+
+        <a class="release-card fade-in" href="#" target="_blank" rel="noopener" data-project="mindsafe">
+          <div class="card-top"><h3>MindSafe — Privacy-First Mental Health App</h3><span class="pill pill--pass pill--dot">Shipped</span></div>
+          <p class="role">UCD MSc project · Product &amp; UX design</p>
+          <p>Concept app predicting emotional triggers from real-life data (sleep, hydration, work schedule) with privacy-by-design at its core: opt-in-only data sharing, local-first storage, and full user data rights.</p>
+          <div class="impact">Impact: grounded in 9 academic sources on mental-health-app privacy and usability.</div>
+          <span class="view-link">View project<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></span>
+        </a>
+
+        <a class="release-card fade-in" href="#" target="_blank" rel="noopener" data-project="f1">
+          <div class="card-top"><h3>F1 Data Analysis &amp; Visualisation</h3><span class="pill pill--pass pill--dot">Shipped</span></div>
+          <p class="role">UCD MSc project · Data storytelling</p>
+          <p>End-to-end analysis of a large racing dataset — cleaning, transformation, validation — to identify performance trends, packaged into an interactive dashboard for non-technical stakeholders.</p>
+          <div class="impact">Impact: bridging technical analysis and clear business communication.</div>
+          <span class="view-link">View project<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></span>
+        </a>
+
+        <a class="release-card fade-in" href="#" target="_blank" rel="noopener" data-project="crime">
+          <div class="card-top"><h3>Irish Crime Statistics Dashboard</h3><span class="pill pill--pass pill--dot">Shipped</span></div>
+          <p class="role">UCD MSc project · Python (Streamlit)</p>
+          <p>Dashboard analysing 22 years of Irish crime data — 400,000+ rows, 16 offence categories, 28 Garda divisions — with 11 visualisations, dynamic KPI cards, spike-detection alerts, and an auto-generated insights panel.</p>
+          <div class="impact">Insight: a headline 2.8% national crime decline masked a 98.3% rise in sexual offences.</div>
+          <span class="view-link">View project<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></span>
+        </a>
+
+        <a class="release-card fade-in" href="#" target="_blank" rel="noopener" data-project="rag-hiv">
+          <div class="card-top"><h3>Learn Red — RAG Model for HIV/AIDS</h3><span class="pill pill--pass pill--dot">Shipped</span></div>
+          <p class="role">UCD MSc capstone · Retrieval-Augmented Generation</p>
+          <p>Built a RAG system pairing a curated, vetted knowledge base with an LLM to answer user queries about HIV and AIDS accurately and sensitively.</p>
+          <div class="impact">Impact: balancing accuracy, sensitivity, and user trust in a high-stakes information domain.</div>
+          <span class="view-link">View project<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></span>
+        </a>
+
+        <a class="release-card fade-in" href="#" target="_blank" rel="noopener" data-project="bird">
+          <div class="card-top"><h3>Bird Species Audio Classifier</h3><span class="pill pill--pass pill--dot">Shipped</span></div>
+          <p class="role">UCD MSc project · Machine Learning</p>
+          <p>Machine learning model identifying bird species from audio recordings, trained on Cornell Lab of Ornithology's dataset — covering preprocessing, feature extraction, and model evaluation.</p>
+          <div class="impact">Impact: defining a problem, choosing a dataset, and shipping a working model end to end.</div>
+          <span class="view-link">View project<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></span>
+        </a>
+
+        <a class="release-card fade-in" href="#" target="_blank" rel="noopener" data-project="library">
+          <div class="card-top"><h3>Library Management System Update</h3><span class="pill pill--pass pill--dot">Shipped</span></div>
+          <p class="role">Project · System modernisation &amp; QA</p>
+          <p>Updated and tested a library management system — CRUD flows for catalogue, loans, and members — writing regression test cases and automated checks alongside the update to catch broken flows before release.</p>
+          <div class="impact">Impact: practice testing a system through a change, not just at rest.</div>
+          <span class="view-link">View project<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></span>
+        </a>
+      </div>
+
+      <p class="mono fade-in" style="font-size:12px; color:var(--ink-soft); margin-top:24px;">note: project links are placeholders (#) — replace each card's href with your live demo or GitHub repo URL to make them clickable.</p>
+    </section>
+
+    <!-- ================= BUG SQUASHER GAME ================= -->
+    <section id="game" class="page" aria-labelledby="game-heading">
+      <div class="page-head">
+        <div class="eyebrow">Just for fun</div>
+        <h2 id="game-heading">Bug Squasher</h2>
+        <p class="lede">Every QA engineer's dream: bugs you're allowed — encouraged — to squash on sight.</p>
+      </div>
+
+      <div class="game-wrap">
+        <p class="game-intro">Press "Run Test Suite" to start, then tab to a bug slot and press Enter or Space to squash it before it escapes. 30 seconds on the clock.</p>
+        <div class="game-hud">
+          <div class="hud-item">SCORE <span id="bsScore">0</span></div>
+          <div class="hud-item" aria-hidden="true">TIME <span id="bsTime">30</span>s</div>
+          <button class="btn-start" id="bsStart">Run Test Suite<span aria-hidden="true"> ▶</span></button>
+        </div>
+        <div class="game-grid" id="bsGrid" role="group" aria-label="Bug slots"></div>
+        <p class="game-msg" id="bsMsg" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section id="contact" class="page" aria-labelledby="contact-heading">
+      <div class="page-head">
+        <div class="eyebrow">Get in touch</div>
+        <h2 id="contact-heading">Contact</h2>
+        <p class="lede">Open to QA Tester and QA Engineer roles. Based in Dublin, Ireland.</p>
+      </div>
+
+      <div class="terminal" aria-hidden="true">
+        <span class="prompt">$</span> git remote add tanya <span style="color:#E8EDF3;">mailto:tanya.l.borges@gmail.com</span><br>
+        <span class="prompt">$</span> echo "let's talk" | mail -s "Hi Tanya" tanya.l.borges@gmail.com
+      </div>
+      <div class="contact-links">
+        <a href="mailto:tanya.l.borges@gmail.com">Email</a>
+        <a href="tel:+353894544969">+353 89 454 4969</a>
+        <a href="https://www.linkedin.com/in/tanyalillianborges/" target="_blank" rel="noopener">LinkedIn<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a>
+      </div>
+
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <label for="cName">Name</label>
+          <input type="text" id="cName" name="name" placeholder="Your name" autocomplete="name" required>
+        </div>
+        <div class="form-row">
+          <label for="cEmail">Email</label>
+          <input type="email" id="cEmail" name="email" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <div class="form-row">
+          <label for="cMessage">Message</label>
+          <textarea id="cMessage" name="message" placeholder="What would you like to say?" required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send message</button>
+        <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // ===== NAV (single scrolling page, click = smooth scroll to section) =====
+  const navButtons = document.querySelectorAll('.nav-btn');
+  const pages = document.querySelectorAll('.page');
+  const navByTarget = {};
+  navButtons.forEach(btn => { navByTarget[btn.getAttribute('data-target')] = btn; });
+
+  navButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-target');
+      const targetPage = document.getElementById(target);
+      targetPage.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  // Highlight the nav item for whichever section is in view.
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navButtons.forEach(b => { b.classList.remove('active'); b.removeAttribute('aria-current'); });
+        if (navByTarget[id]) {
+          navByTarget[id].classList.add('active');
+          navByTarget[id].setAttribute('aria-current', 'page');
+        }
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+  pages.forEach(p => sectionObserver.observe(p));
+
+  // ===== CONTACT FORM (opens a pre-filled email) =====
+  const contactForm = document.getElementById('contactForm');
+  const formMsg = document.getElementById('formMsg');
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('cName').value.trim();
+    const email = document.getElementById('cEmail').value.trim();
+    const message = document.getElementById('cMessage').value.trim();
+
+    if (!name || !email || !message) {
+      formMsg.textContent = 'Please fill in all fields.';
+      formMsg.className = 'form-msg err';
+      return;
+    }
+
+    const subject = encodeURIComponent(`Portfolio contact from ${name}`);
+    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+    window.location.href = `mailto:tanya.l.borges@gmail.com?subject=${subject}&body=${body}`;
+
+    formMsg.textContent = 'Opening your email client…';
+    formMsg.className = 'form-msg ok';
+  });
+
+  // ===== BUG SQUASHER GAME =====
+  const bsGrid = document.getElementById('bsGrid');
+  const bsScoreEl = document.getElementById('bsScore');
+  const bsTimeEl = document.getElementById('bsTime');
+  const bsStart = document.getElementById('bsStart');
+  const bsMsg = document.getElementById('bsMsg');
+
+  const CELL_COUNT = 12;
+  let cells = [];
+  let score = 0;
+  let timeLeft = 30;
+  let timerId = null;
+  let spawnId = null;
+  let running = false;
+
+  // build grid once
+  for (let i = 0; i < CELL_COUNT; i++) {
+    const cell = document.createElement('button');
+    cell.type = 'button';
+    cell.className = 'game-cell';
+    cell.innerHTML = '<span class="bug" aria-hidden="true">🐛</span>';
+    cell.setAttribute('aria-label', `Bug slot ${i + 1}, empty`);
+    cell.addEventListener('click', () => squash(cell));
+    bsGrid.appendChild(cell);
+    cells.push(cell);
+  }
+
+  function squash(cell) {
+    if (!running || !cell.classList.contains('active')) return;
+    cell.classList.remove('active');
+    cell.classList.add('squashed');
+    cell.setAttribute('aria-label', `Bug slot ${cells.indexOf(cell) + 1}, squashed`);
+    score += 10;
+    bsScoreEl.textContent = score;
+    setTimeout(() => cell.classList.remove('squashed'), 200);
+  }
+
+  function spawnBug() {
+    cells.forEach((c, i) => {
+      c.classList.remove('active');
+      c.setAttribute('aria-label', `Bug slot ${i + 1}, empty`);
+    });
+    const idx = Math.floor(Math.random() * cells.length);
+    cells[idx].classList.add('active');
+    cells[idx].setAttribute('aria-label', `Bug slot ${idx + 1}, bug present — squash it`);
+    setTimeout(() => {
+      cells[idx].classList.remove('active');
+      cells[idx].setAttribute('aria-label', `Bug slot ${idx + 1}, empty`);
+    }, 750);
+  }
+
+  function startGame() {
+    if (running) return;
+    running = true;
+    score = 0;
+    timeLeft = 30;
+    bsScoreEl.textContent = score;
+    bsTimeEl.textContent = timeLeft;
+    bsMsg.textContent = '';
+    bsMsg.className = 'game-msg';
+    bsStart.disabled = true;
+    bsStart.textContent = 'Suite running…';
+
+    spawnId = setInterval(spawnBug, 850);
+    timerId = setInterval(() => {
+      timeLeft -= 1;
+      bsTimeEl.textContent = timeLeft;
+      if (timeLeft <= 0) endGame();
+    }, 1000);
+  }
+
+  function endGame() {
+    running = false;
+    clearInterval(timerId);
+    clearInterval(spawnId);
+    cells.forEach(c => c.classList.remove('active'));
+    bsStart.disabled = false;
+    bsStart.textContent = 'Run Test Suite ▶';
+
+    let grade;
+    if (score >= 250) grade = 'Zero defects escaped to production. Ship it.';
+    else if (score >= 150) grade = 'Solid regression run — a couple of bugs slipped through.';
+    else grade = 'Rough sprint — time for a retro.';
+
+    bsMsg.textContent = `Suite complete. Final score: ${score}. ${grade}`;
+    bsMsg.className = 'game-msg done';
+  }
+
+  bsStart.addEventListener('click', startGame);
+</script>
+
+</body>
+</html>
