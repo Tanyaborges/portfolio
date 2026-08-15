@@ -25,7 +25,6 @@
     --radius:3px;
     --sidebar-w:260px;
   }
-
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
@@ -36,11 +35,9 @@
     line-height:1.55;
     -webkit-font-smoothing:antialiased;
   }
-
   a{color:inherit;}
   :focus-visible{outline:2px solid var(--blue); outline-offset:3px;}
   .mono{font-family:'IBM Plex Mono', monospace;}
-
   /* ===== ACCESSIBILITY HELPERS ===== */
   .sr-only{
     position:absolute; width:1px; height:1px; padding:0; margin:-1px;
@@ -57,7 +54,6 @@
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
   }
-
   .pill{
     display:inline-flex; align-items:center; gap:6px;
     font-family:'IBM Plex Mono', monospace;
@@ -72,7 +68,6 @@
   .pill--blue{background:var(--blue-bg); color:var(--blue); border-color:color-mix(in srgb, var(--blue) 30%, transparent);}
   .pill--red{background:var(--red-bg); color:var(--red); border-color:color-mix(in srgb, var(--red) 30%, transparent);}
   .pill--dot::before{content:''; width:6px; height:6px; border-radius:50%; background:currentColor;}
-
   .eyebrow{
     font-family:'IBM Plex Mono', monospace;
     font-size:12px; letter-spacing:.08em; color:var(--ink-soft);
@@ -82,14 +77,12 @@
     font-family:'Fraunces', serif; font-weight:500;
     font-size:28px; margin:2px 0 0;
   }
-
   /* ===== SHELL / LAYOUT ===== */
   .shell{
     display:grid;
     grid-template-columns:var(--sidebar-w) 1fr;
     min-height:100vh;
   }
-
   /* ===== SIDEBAR ===== */
   .sidebar{
     background:var(--ink);
@@ -104,7 +97,6 @@
     font-size:26px; margin:10px 0 14px; line-height:1.15; color:var(--paper);
   }
   .sidebar-top .pill--pass{background:rgba(47,122,77,.18); color:#7DE3A0; border-color:rgba(125,227,160,.4);}
-
   .side-nav-wrap{display:contents;}
   .side-nav{list-style:none; margin:32px 0; padding:0; flex:1;}
   .side-nav li{margin-bottom:4px;}
@@ -118,7 +110,6 @@
   }
   .nav-btn:hover{background:#232B38; color:var(--paper);}
   .nav-btn.active{background:#232B38; color:var(--paper); border-left-color:var(--pass);}
-
   .sidebar-contact{border-top:1px solid #2A3342; padding-top:18px; font-style:normal;}
   .sidebar-contact .eyebrow{color:#6B7684; margin-bottom:10px;}
   .sidebar-contact a{
@@ -127,13 +118,18 @@
     transition:color .15s ease;
   }
   .sidebar-contact a:hover{color:#7DE3A0;}
-
   @media (max-width:860px){
     .shell{grid-template-columns:1fr;}
     .sidebar{
       position:sticky; top:0; height:auto; z-index:20;
       flex-direction:row; align-items:center; flex-wrap:nowrap;
       padding:14px 16px; gap:14px; overflow-x:auto;
+      scrollbar-width:none; -ms-overflow-style:none;
+    }
+    .sidebar::-webkit-scrollbar{display:none;}
+    .sidebar.has-more-nav{
+      -webkit-mask-image:linear-gradient(to right, black calc(100% - 28px), transparent 100%);
+      mask-image:linear-gradient(to right, black calc(100% - 28px), transparent 100%);
     }
     .sidebar-top{display:flex; align-items:center; gap:10px; flex-shrink:0;}
     .sidebar-top .mono.small{display:none;}
@@ -143,11 +139,13 @@
     .nav-btn.active{border-left:none; border-bottom-color:var(--pass);}
     .sidebar-contact{display:none;}
   }
-
   /* ===== MAIN CONTENT ===== */
-  .content{padding:56px 48px; max-width:900px;}
-  @media (max-width:860px){ .content{padding:36px 20px;} }
-
+  .content{padding:56px 48px; max-width:900px; margin:0 auto;}
+  @media (max-width:1080px){
+    :root{--sidebar-w:220px;}
+    .content{padding:44px 32px;}
+  }
+  @media (max-width:860px){ .content{padding:36px 20px; margin:0;} }
   .page{
     display:block;
     scroll-margin-top:24px;
@@ -160,11 +158,9 @@
   @media (max-width:860px){
     .page{scroll-margin-top:78px;}
   }
-
   .page-head{margin-bottom:36px;}
   .page-head .eyebrow{margin-bottom:6px;}
   .page-head p.lede{color:var(--ink-soft); font-size:15.5px; max-width:600px; margin:10px 0 0;}
-
   h1.name{
     font-family:'Fraunces', serif; font-weight:500;
     font-size:clamp(34px, 5vw, 50px); line-height:1.08; margin:0 0 6px; letter-spacing:-.01em;
@@ -174,12 +170,9 @@
   @media (prefers-reduced-motion: reduce){ h1.name .cursor{animation:none;} }
   .tagline{font-size:16.5px; color:var(--ink-soft); max-width:700px; margin:0 0 20px;}
   .pill-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px;}
-
   .subsection{margin-top:52px;}
   .subsection-head{margin-bottom:24px;}
-
   /* CHANGELOG / EXPERIENCE / EDUCATION ENTRIES */
-
   .log-entry {
     display: grid;
     grid-template-columns: 110px 1fr;
@@ -286,7 +279,6 @@
   .coverage-fill{height:100%; background:var(--pass); border-radius:100px; width:0%; transition:width 1s cubic-bezier(.4,0,.2,1);}
   .coverage-fill.blue{background:var(--blue);}
   .coverage-fill.amber{background:var(--amber);}
-
   .skill-bars{display:flex; gap:6px;}
   .skill-bars .bar{
     flex:1; height:8px; border-radius:100px;
@@ -295,12 +287,11 @@
   .skill-bars .bar.filled{background:var(--pass); border-color:var(--pass);}
   .skill-bars .bar.filled.blue{background:var(--blue); border-color:var(--blue);}
   .skill-bars .bar.filled.amber{background:var(--amber); border-color:var(--amber);}
-
   /* CARDS (projects) */
   .release-grid{display:grid; gap:20px; grid-template-columns:1fr 1fr;}
   .release-card.featured{grid-column:1 / -1;}
-  @media (max-width:700px){ .release-grid{grid-template-columns:1fr;} }
-  .release-card{background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius); padding:22px;}
+  @media (max-width:960px){ .release-grid{grid-template-columns:1fr;} }
+  .release-card{background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius); padding:22px; cursor:default;}
   .release-card .card-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; gap:12px;}
   .release-card h3{font-size:16.5px; margin:0; font-family:'Fraunces', serif; font-weight:500;}
   .release-card .role{font-size:12px; color:var(--ink-soft); font-family:'IBM Plex Mono', monospace; margin:2px 0 12px;}
@@ -309,20 +300,12 @@
     font-size:13px; color:var(--ink); background:var(--pass-bg);
     border-left:3px solid var(--pass); padding:8px 12px; border-radius:0 3px 3px 0;
   }
-  a.release-card{text-decoration:none; display:block; cursor:pointer; transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;}
-  a.release-card:hover{transform:translateY(-3px); border-color:var(--pass); box-shadow:0 6px 16px rgba(27,36,48,.08);}
-  .view-link{
-    display:inline-flex; align-items:center; gap:5px; margin-top:12px;
-    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--pass); font-weight:600;
-  }
-
   /* ISSUES LIST */
   .issue{display:grid; grid-template-columns:28px 1fr; gap:12px; padding:18px 0; border-top:1px solid var(--line);}
   .issue:first-of-type{border-top:none;}
   .issue-icon{font-family:'IBM Plex Mono', monospace; color:var(--amber); font-weight:600;}
   .issue h4{margin:0 0 4px; font-size:15px;}
   .issue p{margin:0 0 4px; font-size:14px; color:var(--ink-soft);}
-
   /* INTERESTS TAGS */
   .interest-tags{display:flex; gap:10px; flex-wrap:wrap;}
   .interest-tag{
@@ -330,7 +313,6 @@
     background:var(--paper-raised); border:1px solid var(--line);
     padding:8px 14px; border-radius:100px; color:var(--ink);
   }
-
   /* TERMINAL / CONTACT CARD */
   .terminal{
     font-family:'IBM Plex Mono', monospace;
@@ -346,7 +328,6 @@
     text-decoration:none; color:var(--ink); transition:background .15s ease;
   }
   .contact-links a:hover{background:var(--paper-raised);}
-
   /* CONTACT FORM */
   .contact-form{
     background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius);
@@ -373,7 +354,6 @@
   .form-msg{font-family:'IBM Plex Mono', monospace; font-size:12.5px; margin-top:12px; min-height:16px;}
   .form-msg.ok{color:var(--pass);}
   .form-msg.err{color:var(--red);}
-
   /* BUG SQUASHER GAME */
   .game-wrap{
     background:#111721; border:1px solid #2A3342; border-radius:var(--radius);
@@ -406,23 +386,18 @@
   .game-msg{font-family:'IBM Plex Mono', monospace; font-size:13px; color:#B8C0CC; margin:16px 0 0; min-height:18px;}
   .game-msg.done{color:#7DE3A0;}
   .game-intro{font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:#9AA5B1; margin:0 0 18px;}
-
   .fade-in{opacity:1;}
 </style>
 </head>
 <body>
-
 <a class="skip-link" href="#main-content">Skip to main content</a>
-
 <div class="shell">
-
   <div class="sidebar">
     <div class="sidebar-top">
       <span class="mono small" aria-hidden="true">tanya-borges</span>
       <p class="side-name">Tanya Lillian Borges</p>
       <span class="pill pill--pass pill--dot">OPEN TO WORK</span>
     </div>
-
     <nav class="side-nav-wrap" aria-label="Section navigation">
       <ul class="side-nav">
         <li><button class="nav-btn active" data-target="about" aria-current="page">About</button></li>
@@ -435,7 +410,6 @@
         <li><button class="nav-btn" data-target="contact">Contact</button></li>
       </ul>
     </nav>
-
     <address class="sidebar-contact">
       <div class="eyebrow">Contact</div>
       <a href="mailto:tanya.l.borges@gmail.com">tanya.l.borges@gmail.com</a>
@@ -443,9 +417,7 @@
       <a href="https://www.linkedin.com/in/tanyalillianborges/" target="_blank" rel="noopener">LinkedIn<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a>
     </address>
   </div>
-
   <main class="content" id="main-content" tabindex="-1">
-
     <!-- ================= ABOUT ================= -->
     <section id="about" class="page active" aria-label="About">
       <h1 class="name">Tanya Lillian Borges<span class="cursor mono" aria-hidden="true">&nbsp;</span></h1>
@@ -461,13 +433,11 @@
         <a href="tel:+353894544969">+353 89 454 4969</a>
         <a href="https://www.linkedin.com/in/tanyalillianborges/" target="_blank" rel="noopener">LinkedIn<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a>
       </div>
-
       <div class="subsection">
         <div class="subsection-head">
           <div class="eyebrow">How I test</div>
           <h2>Working principles</h2>
         </div>
-
         <div class="release-grid">
           <div class="release-card fade-in">
             <div class="card-top"><h3>Break it before the user does</h3><span class="pill pill--blue pill--dot">Principle</span></div>
@@ -496,7 +466,6 @@
         </div>
       </div>
     </section>
-
     <!-- ================= SKILLS ================= -->
     <section id="skills" class="page" aria-labelledby="skills-heading">
       <div class="page-head">
@@ -547,7 +516,6 @@
         </div>
       </div>
       <p class="mono fade-in" style="font-size:12px; color:var(--ink-soft); margin-top:8px;">note: automation coverage is under active test — growing steadily project by project.</p>
-
       <div class="subsection">
         <div class="subsection-head">
           <div class="eyebrow">Tools &amp; methods</div>
@@ -568,20 +536,17 @@
         </div>
       </div>
     </section>
-
     <!-- ================= EXPERIENCE ================= -->
     <section id="experience" class="page" aria-labelledby="experience-heading">
       <div class="page-head">
         <div class="eyebrow">Career</div>
         <h2 id="experience-heading">Work experience</h2>
       </div>
-
       <div class="org-block fade-in">
         <div class="org-head">
           <h3 class="org-name">ARIVE</h3>
           <p class="org-desc">ARIVE is a mortgage technology company that builds an all-in-one origination platform for independent mortgage brokers — combining a loan origination system, borrower-facing point of sale, products &amp; pricing engine, and a connected lender marketplace into a single tool.</p>
         </div>
-
         <div class="log-entry">
           <div class="log-body">
             <h3>Quality Assurance Engineer</h3>
@@ -604,7 +569,6 @@
             </div>
           </div>
         </div>
-
         <div class="log-entry">
           <div class="log-body">
             <h3>Associate Quality Assurance Engineer</h3>
@@ -625,14 +589,12 @@
         </div>
       </div>
     </section>
-
     <!-- ================= EDUCATION ================= -->
     <section id="education" class="page" aria-labelledby="education-heading">
       <div class="page-head">
         <div class="eyebrow">Education</div>
         <h2 id="education-heading">Education</h2>
       </div>
-
       <div class="log-entry fade-in">
         <div class="log-body">
           <h3>M.Sc. in Information Systems</h3>
@@ -654,7 +616,6 @@
           </div>
         </div>
       </div>
-
       <div class="log-entry fade-in">
         <div class="log-body">
           <h3>B.Tech. in Computer Science</h3>
@@ -675,7 +636,6 @@
         </div>
       </div>
     </section>
-
     <!-- ================= BEYOND WORK ================= -->
     <section id="beyond" class="page" aria-labelledby="beyond-heading">
       <div class="page-head">
@@ -683,7 +643,6 @@
         <h2 id="beyond-heading">Beyond work</h2>
         <p class="lede">Volunteering, mentoring, and community organising alongside QA and study.</p>
       </div>
-
       <div class="log-entry fade-in">
         <div class="log-body">
           <h3>Postgraduate Representative</h3>
@@ -693,7 +652,6 @@
           </ul>
         </div>
       </div>
-
       <div class="log-entry fade-in">
         <div class="log-body">
           <h3>General Volunteer</h3>
@@ -703,7 +661,6 @@
           </ul>
         </div>
       </div>
-
       <div class="log-entry fade-in">
         <div class="log-body">
           <h3>General Volunteer</h3>
@@ -713,7 +670,6 @@
           </ul>
         </div>
       </div>
-
       <div class="log-entry fade-in">
         <div class="log-body">
           <h3>Project Mentor</h3>
@@ -723,7 +679,6 @@
           </ul>
         </div>
       </div>
-
       <div class="log-entry fade-in">
         <div class="log-body">
           <h3>Slack Moderator &amp; General Volunteer</h3>
@@ -733,7 +688,6 @@
           </ul>
         </div>
       </div>
-
       <div class="log-entry fade-in">
         <div class="log-body">
           <h3>Teaching Volunteer</h3>
@@ -745,7 +699,6 @@
           </ul>
         </div>
       </div>
-
       <div class="log-entry fade-in">
         <div class="log-body">
           <h3>Teaching Volunteer</h3>
@@ -758,74 +711,57 @@
         </div>
       </div>
     </section>
-
     <!-- ================= PROJECTS ================= -->
     <section id="projects" class="page" aria-labelledby="projects-heading">
       <div class="page-head">
         <div class="eyebrow">Case studies</div>
         <h2 id="projects-heading">Projects</h2>
       </div>
-
       <div class="release-grid">
-        <a class="release-card featured fade-in" href="#" target="_blank" rel="noopener" data-project="todo">
+        <div class="release-card featured fade-in">
           <div class="card-top"><h3>To-Do App</h3><span class="pill pill--pass pill--dot">Shipped</span></div>
           <p class="role">Personal project · Full-stack build</p>
           <p>Designed and built a task manager application end to end — feature scoping, UI design, and deployment — as a self-directed exercise in shipping a full product independently, then testing it the way I'd test any real release.</p>
           <div class="impact">Impact: proof point for scoping, building, and QA-ing a product start to finish.</div>
-          <span class="view-link">View project<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></span>
-        </a>
-
-        <a class="release-card fade-in" href="#" target="_blank" rel="noopener" data-project="mindsafe">
+        </div>
+        <div class="release-card fade-in">
           <div class="card-top"><h3>MindSafe — Privacy-First Mental Health App</h3><span class="pill pill--pass pill--dot">Shipped</span></div>
           <p class="role">UCD MSc project · Product &amp; UX design</p>
           <p>Concept app predicting emotional triggers from real-life data (sleep, hydration, work schedule) with privacy-by-design at its core: opt-in-only data sharing, local-first storage, and full user data rights.</p>
           <div class="impact">Impact: grounded in 9 academic sources on mental-health-app privacy and usability.</div>
-          <span class="view-link">View project<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></span>
-        </a>
-
-        <a class="release-card fade-in" href="#" target="_blank" rel="noopener" data-project="f1">
+        </div>
+        <div class="release-card fade-in">
           <div class="card-top"><h3>F1 Data Analysis &amp; Visualisation</h3><span class="pill pill--pass pill--dot">Shipped</span></div>
           <p class="role">UCD MSc project · Data storytelling</p>
           <p>End-to-end analysis of a large racing dataset — cleaning, transformation, validation — to identify performance trends, packaged into an interactive dashboard for non-technical stakeholders.</p>
           <div class="impact">Impact: bridging technical analysis and clear business communication.</div>
-          <span class="view-link">View project<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></span>
-        </a>
-
-        <a class="release-card fade-in" href="#" target="_blank" rel="noopener" data-project="crime">
+        </div>
+        <div class="release-card fade-in">
           <div class="card-top"><h3>Irish Crime Statistics Dashboard</h3><span class="pill pill--pass pill--dot">Shipped</span></div>
           <p class="role">UCD MSc project · Python (Streamlit)</p>
           <p>Dashboard analysing 22 years of Irish crime data — 400,000+ rows, 16 offence categories, 28 Garda divisions — with 11 visualisations, dynamic KPI cards, spike-detection alerts, and an auto-generated insights panel.</p>
           <div class="impact">Insight: a headline 2.8% national crime decline masked a 98.3% rise in sexual offences.</div>
-          <span class="view-link">View project<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></span>
-        </a>
-
-        <a class="release-card fade-in" href="#" target="_blank" rel="noopener" data-project="rag-hiv">
+        </div>
+        <div class="release-card fade-in">
           <div class="card-top"><h3>Learn Red — RAG Model for HIV/AIDS</h3><span class="pill pill--pass pill--dot">Shipped</span></div>
           <p class="role">UCD MSc capstone · Retrieval-Augmented Generation</p>
           <p>Built a RAG system pairing a curated, vetted knowledge base with an LLM to answer user queries about HIV and AIDS accurately and sensitively.</p>
           <div class="impact">Impact: balancing accuracy, sensitivity, and user trust in a high-stakes information domain.</div>
-          <span class="view-link">View project<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></span>
-        </a>
-
-        <a class="release-card fade-in" href="#" target="_blank" rel="noopener" data-project="bird">
+        </div>
+        <div class="release-card fade-in">
           <div class="card-top"><h3>Bird Species Audio Classifier</h3><span class="pill pill--pass pill--dot">Shipped</span></div>
           <p class="role">UCD MSc project · Machine Learning</p>
           <p>Machine learning model identifying bird species from audio recordings, trained on Cornell Lab of Ornithology's dataset — covering preprocessing, feature extraction, and model evaluation.</p>
           <div class="impact">Impact: defining a problem, choosing a dataset, and shipping a working model end to end.</div>
-          <span class="view-link">View project<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></span>
-        </a>
-
-        <a class="release-card fade-in" href="#" target="_blank" rel="noopener" data-project="library">
+        </div>
+        <div class="release-card fade-in">
           <div class="card-top"><h3>Library Management System Update</h3><span class="pill pill--pass pill--dot">Shipped</span></div>
           <p class="role">Project · System modernisation &amp; QA</p>
           <p>Updated and tested a library management system — CRUD flows for catalogue, loans, and members — writing regression test cases and automated checks alongside the update to catch broken flows before release.</p>
           <div class="impact">Impact: practice testing a system through a change, not just at rest.</div>
-          <span class="view-link">View project<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></span>
-        </a>
+        </div>
       </div>
-
     </section>
-
     <!-- ================= BUG SQUASHER GAME ================= -->
     <section id="game" class="page" aria-labelledby="game-heading">
       <div class="page-head">
@@ -833,7 +769,6 @@
         <h2 id="game-heading">Bug Squasher</h2>
         <p class="lede">Every QA engineer's dream: bugs you're allowed — encouraged — to squash on sight.</p>
       </div>
-
       <div class="game-wrap">
         <p class="game-intro">Press "Run Test Suite" to start, then tab to a bug slot and press Enter or Space to squash it before it escapes. 30 seconds on the clock.</p>
         <div class="game-hud">
@@ -845,7 +780,6 @@
         <p class="game-msg" id="bsMsg" role="status" aria-live="polite"></p>
       </div>
     </section>
-
     <!-- ================= CONTACT ================= -->
     <section id="contact" class="page" aria-labelledby="contact-heading">
       <div class="page-head">
@@ -858,7 +792,6 @@
         <a href="tel:+353894544969">+353 89 454 4969</a>
         <a href="https://www.linkedin.com/in/tanyalillianborges/" target="_blank" rel="noopener">LinkedIn<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a>
       </div>
-
       <form class="contact-form" id="contactForm">
         <div class="form-row">
           <label for="cName">Name</label>
@@ -876,17 +809,14 @@
         <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
       </form>
     </section>
-
   </main>
 </div>
-
 <script>
   // ===== NAV (single scrolling page, click = smooth scroll to section) =====
   const navButtons = document.querySelectorAll('.nav-btn');
   const pages = document.querySelectorAll('.page');
   const navByTarget = {};
   navButtons.forEach(btn => { navByTarget[btn.getAttribute('data-target')] = btn; });
-
   navButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       const target = btn.getAttribute('data-target');
@@ -894,7 +824,6 @@
       targetPage.scrollIntoView({behavior:'smooth', block:'start'});
     });
   });
-
   // Highlight the nav item for whichever section is in view.
   const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -908,9 +837,16 @@
       }
     });
   }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
-
   pages.forEach(p => sectionObserver.observe(p));
-
+  // ===== MOBILE NAV SCROLL FADE (hint there are more tabs to scroll to) =====
+  const sidebarEl = document.querySelector('.sidebar');
+  function updateNavFade() {
+    const atEnd = sidebarEl.scrollLeft + sidebarEl.clientWidth >= sidebarEl.scrollWidth - 2;
+    sidebarEl.classList.toggle('has-more-nav', !atEnd && sidebarEl.scrollWidth > sidebarEl.clientWidth);
+  }
+  updateNavFade();
+  sidebarEl.addEventListener('scroll', updateNavFade, { passive: true });
+  window.addEventListener('resize', updateNavFade);
   // ===== CONTACT FORM (opens a pre-filled email) =====
   const contactForm = document.getElementById('contactForm');
   const formMsg = document.getElementById('formMsg');
@@ -919,28 +855,23 @@
     const name = document.getElementById('cName').value.trim();
     const email = document.getElementById('cEmail').value.trim();
     const message = document.getElementById('cMessage').value.trim();
-
     if (!name || !email || !message) {
       formMsg.textContent = 'Please fill in all fields.';
       formMsg.className = 'form-msg err';
       return;
     }
-
     const subject = encodeURIComponent(`Portfolio contact from ${name}`);
     const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
     window.location.href = `mailto:tanya.l.borges@gmail.com?subject=${subject}&body=${body}`;
-
     formMsg.textContent = 'Opening your email client…';
     formMsg.className = 'form-msg ok';
   });
-
   // ===== BUG SQUASHER GAME =====
   const bsGrid = document.getElementById('bsGrid');
   const bsScoreEl = document.getElementById('bsScore');
   const bsTimeEl = document.getElementById('bsTime');
   const bsStart = document.getElementById('bsStart');
   const bsMsg = document.getElementById('bsMsg');
-
   const CELL_COUNT = 12;
   let cells = [];
   let score = 0;
@@ -948,7 +879,6 @@
   let timerId = null;
   let spawnId = null;
   let running = false;
-
   // build grid once
   for (let i = 0; i < CELL_COUNT; i++) {
     const cell = document.createElement('button');
@@ -960,7 +890,6 @@
     bsGrid.appendChild(cell);
     cells.push(cell);
   }
-
   function squash(cell) {
     if (!running || !cell.classList.contains('active')) return;
     cell.classList.remove('active');
@@ -970,7 +899,6 @@
     bsScoreEl.textContent = score;
     setTimeout(() => cell.classList.remove('squashed'), 200);
   }
-
   function spawnBug() {
     cells.forEach((c, i) => {
       c.classList.remove('active');
@@ -984,7 +912,6 @@
       cells[idx].setAttribute('aria-label', `Bug slot ${idx + 1}, empty`);
     }, 750);
   }
-
   function startGame() {
     if (running) return;
     running = true;
@@ -996,7 +923,6 @@
     bsMsg.className = 'game-msg';
     bsStart.disabled = true;
     bsStart.textContent = 'Suite running…';
-
     spawnId = setInterval(spawnBug, 850);
     timerId = setInterval(() => {
       timeLeft -= 1;
@@ -1004,7 +930,6 @@
       if (timeLeft <= 0) endGame();
     }, 1000);
   }
-
   function endGame() {
     running = false;
     clearInterval(timerId);
@@ -1012,18 +937,14 @@
     cells.forEach(c => c.classList.remove('active'));
     bsStart.disabled = false;
     bsStart.textContent = 'Run Test Suite ▶';
-
     let grade;
     if (score >= 250) grade = 'Zero defects escaped to production. Ship it.';
     else if (score >= 150) grade = 'Solid regression run — a couple of bugs slipped through.';
     else grade = 'Rough sprint — time for a retro.';
-
     bsMsg.textContent = `Suite complete. Final score: ${score}. ${grade}`;
     bsMsg.className = 'game-msg done';
   }
-
   bsStart.addEventListener('click', startGame);
 </script>
-
 </body>
 </html>
