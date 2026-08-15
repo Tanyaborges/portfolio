@@ -179,61 +179,105 @@
   .subsection-head{margin-bottom:24px;}
 
   /* CHANGELOG / EXPERIENCE / EDUCATION ENTRIES */
- 
-  .log-entry{
-    display:grid;
-    grid-template-columns:110px 1fr;
-    gap:20px;
-    padding:24px 0;
-    border-top:1px solid var(--line);
-  }
 
-/* First job: no line and no gap after ARIVE summary */
+  .log-entry {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 20px;
+    padding: 24px 0;
+    border-top: 1px solid var(--line);
+  }
+  
+  /* First job: remove ONLY the line and keep normal spacing */
   .org-head + .log-entry {
-    border-top:none;
-    padding-top:0;
+    border-top: none;
   }
-
-  /* Second job: keep separator, but no extra space above it */
-  .org-block .log-entry + .log-entry {
-    padding-top:0;
+  
+  /* Job heading */
+  .log-body h3 {
+    font-size: 17px;
+    margin: 0 0 4px;
+    font-weight: 600;
   }
-  .log-version{font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:600; color:var(--ink); padding-top:2px;}
-  .log-body h3{font-size:17px; margin:0 0 4px; font-weight:600;}
-  .log-meta{font-size:13px; color:var(--ink-soft); margin:0 0 10px;}
-  .log-body p.desc{margin:0 0 10px; color:var(--ink-soft); font-size:14.5px;}
-  ul.desc-list{margin:0 0 12px; padding-left:18px; color:var(--ink-soft); font-size:14.5px;}
-  ul.desc-list li{margin-bottom:5px;}
-  .log-tags{display:flex; gap:6px; flex-wrap:wrap;}
-  .tag{
-    font-family:'IBM Plex Mono', monospace; font-size:11px;
-    background:var(--paper-raised); border:1px solid var(--line);
-    padding:3px 8px; border-radius:100px; color:var(--ink-soft);
+  
+  .log-meta {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0 0 10px;
   }
-  @media (max-width:560px){ .log-entry{grid-template-columns:1fr;} .log-version{padding-top:0;} }
-  .log-entry:not(:has(.log-version)){grid-template-columns:1fr;}
-
-  /* ORGANISATION GROUPING (experience) */
-  .org-block{margin-bottom:0;}
+  
+  .log-body p.desc {
+    margin: 0 0 10px;
+    color: var(--ink-soft);
+    font-size: 14.5px;
+  }
+  
+  ul.desc-list {
+    margin: 0 0 12px;
+    padding-left: 18px;
+    color: var(--ink-soft);
+    font-size: 14.5px;
+  }
+  
+  ul.desc-list li {
+    margin-bottom: 5px;
+  }
+  
+  .log-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    padding: 3px 8px;
+    border-radius: 100px;
+    color: var(--ink-soft);
+  }
+  
+  @media (max-width:560px) {
+    .log-entry {
+      grid-template-columns: 1fr;
+    }
+  
+    .log-version {
+      padding-top: 0;
+    }
+  }
+  
+  .log-entry:not(:has(.log-version)) {
+    grid-template-columns: 1fr;
+  }
+  
+  
+  /* ORGANISATION GROUPING */
+  
+  .org-block {
+    margin-bottom: 0;
+  }
+  
   .org-head {
-    padding-bottom:0;
-    margin-bottom:0;
+    padding-bottom: 0;
+    margin-bottom: 0;
   }
   
   .org-name {
-    font-family:'Fraunces', serif;
-    font-weight:500;
-    font-size:21px;
-    margin:0;
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 21px;
+    margin: 0;
   }
   
   .org-desc {
-    font-size:14px;
-    color:var(--ink-soft);
-    margin:0;
-    max-width:640px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 640px;
   }
-
   /* COVERAGE */
   .coverage-item{margin-bottom:20px;}
   .coverage-label{display:flex; justify-content:space-between; font-size:14.5px; margin-bottom:6px;}
