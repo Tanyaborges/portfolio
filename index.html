@@ -847,10 +847,14 @@
   updateNavFade();
   sidebarEl.addEventListener('scroll', updateNavFade, { passive: true });
   window.addEventListener('resize', updateNavFade);
-  // ===== CONTACT FORM (opens a pre-filled email) =====
+  // ===== CONTACT FORM =====
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xrpzaejn'
+
   const contactForm = document.getElementById('contactForm');
   const formMsg = document.getElementById('formMsg');
-  contactForm.addEventListener('submit', (e) => {
+  const formSubmitBtn = contactForm.querySelector('.form-submit');
+
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = document.getElementById('cName').value.trim();
     const email = document.getElementById('cEmail').value.trim();
@@ -860,11 +864,39 @@
       formMsg.className = 'form-msg err';
       return;
     }
-    const subject = encodeURIComponent(`Portfolio contact from ${name}`);
-    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
-    window.location.href = `mailto:tanya.l.borges@gmail.com?subject=${subject}&body=${body}`;
-    formMsg.textContent = 'Opening your email client…';
-    formMsg.className = 'form-msg ok';
+
+    // Fallback: endpoint not configured yet — just open a pre-filled email.
+    if (FORMSPREE_ENDPOINT.includes('YOUR_FORM_ID')) {
+      const subject = encodeURIComponent(`Portfolio contact from ${name}`);
+      const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+      window.location.href = `mailto:tanya.l.borges@gmail.com?subject=${subject}&body=${body}`;
+      formMsg.textContent = 'Opening your email client… (set up Formspree to store submissions instead)';
+      formMsg.className = 'form-msg ok';
+      return;
+    }
+
+    formSubmitBtn.disabled = true;
+    formMsg.textContent = 'Sending…';
+    formMsg.className = 'form-msg';
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(contactForm),
+      });
+      if (res.ok) {
+        formMsg.textContent = 'Message sent — thanks for reaching out!';
+        formMsg.className = 'form-msg ok';
+        contactForm.reset();
+      } else {
+        throw new Error('Request failed');
+      }
+    } catch (err) {
+      formMsg.textContent = "Something went wrong — please email tanya.l.borges@gmail.com directly.";
+      formMsg.className = 'form-msg err';
+    } finally {
+      formSubmitBtn.disabled = false;
+    }
   });
   // ===== BUG SQUASHER GAME =====
   const bsGrid = document.getElementById('bsGrid');
