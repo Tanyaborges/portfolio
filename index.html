@@ -180,7 +180,24 @@
 
   /* CHANGELOG / EXPERIENCE / EDUCATION ENTRIES */
  
-  .org-head + .log-entry {border-top: none, padding-top: 24px;}
+  .log-entry{
+    display:grid;
+    grid-template-columns:110px 1fr;
+    gap:20px;
+    padding:24px 0;
+    border-top:1px solid var(--line);
+  }
+
+/* First job: no line and no gap after ARIVE summary */
+  .org-head + .log-entry {
+    border-top:none;
+    padding-top:0;
+  }
+
+  /* Second job: keep separator, but no extra space above it */
+  .org-block .log-entry + .log-entry {
+    padding-top:0;
+  }
   .log-version{font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:600; color:var(--ink); padding-top:2px;}
   .log-body h3{font-size:17px; margin:0 0 4px; font-weight:600;}
   .log-meta{font-size:13px; color:var(--ink-soft); margin:0 0 10px;}
@@ -198,9 +215,24 @@
 
   /* ORGANISATION GROUPING (experience) */
   .org-block{margin-bottom:0;}
-  .org-head{padding-bottom:0; margin-bottom:0;}
-  .org-name{font-family:'Fraunces', serif; font-weight:500; font-size:21px; margin:0 0 0px;}
-  .org-desc{font-size:14px; color:var(--ink-soft); margin:0; max-width:640px;}
+  .org-head {
+    padding-bottom:0;
+    margin-bottom:0;
+  }
+  
+  .org-name {
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:21px;
+    margin:0;
+  }
+  
+  .org-desc {
+    font-size:14px;
+    color:var(--ink-soft);
+    margin:0;
+    max-width:640px;
+  }
 
   /* COVERAGE */
   .coverage-item{margin-bottom:20px;}
